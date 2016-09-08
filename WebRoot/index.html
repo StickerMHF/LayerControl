@@ -8,14 +8,12 @@
     <meta name="content-type" content="text/html; charset=UTF-8">
     
     <link rel="stylesheet" type="text/css" href="css/leaflet.css">
-    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/leaflet-LayerControl.css">
     	<script src="js/jquery-1.9.1.min.js"></script>
     	<script src="js/leafletplugin/leaflet.js"></script>
     	<script src="js/leafletplugin/esri-leaflet.js"></script>
-    	<script src="js/jquery.ztree.core.js"></script>
-    	<script src="js/jquery.ztree.excheck.js"></script>
+    	<script src="js/leaflet-LayerControl.js"></script>
     	<script src="js/layerData.js"></script>
-    	<script src="js/ztree.js"></script>
 <style>
 html,body{padding:0;margin:0;width:100%;height:100%;}
 	.whole{padding:0;margin:0;width:100%;height:100%;}
@@ -27,7 +25,7 @@ html,body{padding:0;margin:0;width:100%;height:100%;}
   <body>
     <div class="whole">
     	<div class="left">
-    		<div id="treeDemo" class="ztree"></div>
+    		<div id="treeDemo"></div>
     	</div>
     	<div id="map" class="right"></div>
     </div>
@@ -51,24 +49,170 @@ html,body{padding:0;margin:0;width:100%;height:100%;}
 				dataType : "json",
 				success : function(msg) {
 					ztreeNodes = msg.ztree;
-					showZtree();
-					dynamicNodes = msg.dynamic;
-					dynamic.setLayerDefs(msg.dynamic[0].layerDefs);
-					dynamic.setLayers(msg.dynamic[0].layers);
-					$("#left1 .loading").css("display","none");
+					layerztreecontrol=L.Control.layerztreecontrol({domdiv:"#treeDemo",data:msg,layerid:dynamic._leaflet_id});
+					layerztreecontrol.addTo(map);
+					
 				}
 		});
-		
+		var treedata={
+		dynamic:[{layerDefs:{},layers:[]}],
+		ztree:[
+          	{
+        		"id": 1,
+        		"pId": 0,
+        		"name": "气井",
+        		"checked": true,
+        		"open": true,
+        		"controlType":"单井",
+        		"layerIndex":0,
+        	}, {
+        		"id": "11",
+        		"pId": 1,
+        		"name": "作业一区",
+        		"checked": true,
+        		"open": true,
+        		"controlType":"作业一区",
+        		"layerIndex":0,
+        	}, {
+        		"id": "111",
+        		"pId": "11",
+        		"name": "苏东1站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东1站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "112",
+        		"pId": "11",
+        		"name": "苏东2站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东2站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "113",
+        		"pId": "11",
+        		"name": "苏东3站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东3站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "114",
+        		"pId": "11",
+        		"name": "苏东5站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东5站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "115",
+        		"pId": "11",
+        		"name": "苏东6站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东6站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "116",
+        		"pId": "11",
+        		"name": "苏东4站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东4站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "117",
+        		"pId": "11",
+        		"name": "苏东3X",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东3X",
+        		"layerIndex":0,
+        	}, {
+        		"id": "118",
+        		"pId": "11",
+        		"name": "苏东16X",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东16X",
+        		"layerIndex":0,
+        	}, {
+        		"id": "12",
+        		"pId": 1,
+        		"name": "作业二区",
+        		"checked": true,
+        		"open": true,
+        		"controlType":"作业二区",
+        		"layerIndex":0,
+        	}, {
+        		"id": "121",
+        		"pId": "12",
+        		"name": " ",
+        		"checked": true,
+        		"open": false,
+        		"controlType":" ",
+        		"layerIndex":0,
+        	}, {
+        		"id": "13",
+        		"pId": 1,
+        		"name": "作业三区",
+        		"checked": true,
+        		"open": true,
+        		"controlType":"作业三区",
+        		"layerIndex":0,
+        	}, {
+        		"id": "131",
+        		"pId": "13",
+        		"name": "苏东8站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东8站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "132",
+        		"pId": "13",
+        		"name": " ",
+        		"checked": true,
+        		"open": false,
+        		"controlType":" ",
+        		"layerIndex":0,
+        	}, {
+        		"id": "133",
+        		"pId": "13",
+        		"name": "苏东7站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东7站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "14",
+        		"pId": 1,
+        		"name": "作业四区",
+        		"checked": true,
+        		"open": true,
+        		"controlType":"作业四区",
+        		"layerIndex":0,
+        	}, {
+        		"id": "141",
+        		"pId": "14",
+        		"name": "苏东9站",
+        		"checked": true,
+        		"open": false,
+        		"controlType":"苏东9站",
+        		"layerIndex":0,
+        	}, {
+        		"id": "142",
+        		"pId": "14",
+        		"name": " ",
+        		"checked": true,
+        		"open": false,
+        		"controlType":" ",
+        		"layerIndex":0,
+        	}
+        ]}
   
-  //获取初始化显示图层
-  var layers = new Array();
-		for (var i = 0; i < LayerData.length; i++) {
-			var layerIndex = LayerData[i].layerIndex;
-			if(LayerData[i].checked){
-				layers.push(layerIndex);
-			}
-		}
-		dynamicNodes={"url":mapService,"layers":layers}
+ 
     </script>
   </body>
 </html>

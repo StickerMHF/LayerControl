@@ -1,4 +1,4 @@
-/*$(function(){
+﻿/*$(function(){
 	ZHGL.init();
 });*/
 var mapService = "http://192.168.0.2:6080/arcgis/rest/services/server/yqscdcdt/MapServer/";
